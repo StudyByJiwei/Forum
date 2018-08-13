@@ -20,9 +20,17 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
+    function guests_cannot_see_the_create_thread_page()
+    {
+        $this->withExceptionHandling()
+            ->get('thread/create')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
     function an_authenticated_user_can_create_new_forum_threads()
     {
-        $this->singIn();
+        $this->signIn();
 
         $thread = make('App\Thread');
 

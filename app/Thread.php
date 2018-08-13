@@ -8,6 +8,8 @@ class Thread extends Model
 {
     protected $guarded = [];
 
+    protected $fillable = ['title', 'body', 'user_id'];
+
     public function path()
     {
         return '/threads/'.$this->id;
