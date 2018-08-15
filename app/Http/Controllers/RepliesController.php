@@ -4,14 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 
+/**
+ * Class RepliesController
+ *
+ * @package App\Http\Controllers
+ */
 class RepliesController extends Controller
 {
+    /**
+     * RepliesController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function store(Thread $thread)
+    /**
+     * @param             $channelId
+     * @param \App\Thread $thread
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store($channelId, Thread $thread)
     {
         $thread->addReply([
             'body' => request('body'),
