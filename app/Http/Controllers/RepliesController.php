@@ -40,12 +40,20 @@ class RepliesController extends Controller
         return back()->with('flash', 'Your reply has been left.');
     }
 
+    /**
+     * @param \App\Reply $reply
+     */
     public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
         $reply->update(request(['body']));
     }
 
+    /**
+     * @param \App\Reply $reply
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function destroy(Reply $reply)
     {
         $this->authorize('update', $reply);
