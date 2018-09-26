@@ -21,6 +21,12 @@ try {
 
 window.Vue = require('vue');
 
+window.Vue.prototype.authorize = function(handler) {
+    let user = window.App.user;
+    if (!user) return false;
+    return handler(user);
+};
+
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
