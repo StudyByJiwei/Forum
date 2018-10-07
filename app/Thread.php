@@ -79,7 +79,6 @@ class Thread extends Model
     public function addReply($reply)
     {
         $reply = $this->replies()->create($reply);
-
         $this->subscriptions
             ->filter(function($sub) use ($reply) {
                 return $sub->user_id != $reply->user_id;
