@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reply;
-use App\Spam;
+use App\Inspections\Spam;
 use App\Thread;
 
 /**
@@ -30,7 +30,7 @@ class RepliesController extends Controller
      * @param             $channelId
      * @param \App\Thread $thread
      *
-     * @param \App\Spam   $spam
+     * @param \App\Inspections\Spam   $spam
      *
      * @return \Illuminate\Http\RedirectResponse
      */
