@@ -35,26 +35,34 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread)
     {
-        $this->validateReply();
-        $reply = $thread->addReply([
-            'body' => request('body'),
-            'user_id'=>auth()->id(),
+        try {
+            $this->validateReply();
+            $reply = $thread->addReply([
+                'body' => request('body'),
+                'user_id'=>auth()->id(),
 
-        ]);
-        if (request()->expectsJson()) {
-            return $reply->load('owner');
+            ]);
+        } catch (\Exception $e) {
+            return response('Sorry, your reply could not be saved at this time', 422);
         }
-        return back()->with('flash', 'Your reply has been left.');
+
+        return $reply->load('owner');
     }
 
     /**
-     * @param \App\Reply            $reply
+     * @param \App\Reply $reply
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
-        $this->validateReply();
-        $reply->update(request(['body']));
+        try {
+            $this->validateReply();
+            $reply->update(request(['body']));
+        } catch (\Exception $e) {
+            return response('Sorry, your reply could not be saved at this time', 422);
+        }
     }
 
     /**
