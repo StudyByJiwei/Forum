@@ -39,7 +39,6 @@ class RepliesController extends Controller
             $reply = $thread->addReply([
                 'body' => request('body'),
                 'user_id'=>auth()->id(),
-
             ]);
         } catch (\Exception $e) {
             return response('Sorry, your reply could not be saved at this time', 422);
