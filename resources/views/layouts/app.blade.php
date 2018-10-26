@@ -29,6 +29,7 @@
             display: none;
         }
     </style>
+    @yield('header')
 </head>
 <body style="padding-bottom: 100px;">
     <div id="app">
@@ -47,5 +48,6 @@
         ]) !!};
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>
