@@ -15,4 +15,6 @@ class ProfilesController extends Controller
             'activities'     => Activity::feed($user)
         ]);
     }
+
+
 }

@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return sprintf("users.%s.visits.%s", auth()->id(), $thread->id);
     }
+
+    public function avatar()
+    {
+        return asset($this->avatar_path ?: 'avatars/default.jpg');
+    }
 }
