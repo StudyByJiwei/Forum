@@ -27,7 +27,7 @@ class ThreadTest extends TestCase
     }
 
     /** @test */
-    function a_thread_can_make_a_string_path()
+    function a_thread_has_a_path()
     {
         $thread = create('App\Thread');
 

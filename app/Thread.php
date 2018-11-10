@@ -44,16 +44,11 @@ class Thread extends Model
     }
 
     /**
-     * @var array
-     */
-    protected $fillable = ['title', 'body', 'user_id', 'channel_id'];
-
-    /**
      * @return string
      */
     public function path()
     {
-        return "/threads/{$this->channel->slug}/{$this->id}";
+        return "/threads/{$this->channel->slug}/{$this->slug}";
     }
 
     /**
@@ -150,4 +145,8 @@ class Thread extends Model
         return $this->updated_at > cache($key);
     }
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
