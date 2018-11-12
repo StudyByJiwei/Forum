@@ -81,12 +81,21 @@ class CreateThreadsTest extends TestCase
     function a_thread_requires_a_unique_slug()
     {
         $this->signIn();
-        $thread = create('App\Thread', ['title' => 'Foo Title', 'slug' => 'foo-title']);
+        create('App\Thread', [], 2);
+        $thread = create('App\Thread', ['title' => 'Foo Title']);
         $this->assertEquals($thread->fresh()->slug, 'foo-title');
-        $this->post(route('threads'), $thread->toArray());
-        $this->assertTrue(Thread::whereSlug('foo-title-2')->exists());
-        $this->post(route('threads'), $thread->toArray());
-        $this->assertTrue(Thread::whereSlug('foo-title-3')->exists());
+
+        $thread = $this->postJson(route('threads'), $thread->toArray())->json();
+        $this->assertEquals("foo-title-{$thread['id']}", $thread['slug']);
+    }
+    
+    /** @test */
+    function a_thread_with_a_title_that_ends_in_a_number_should_generate_the_proper_slug()
+    {
+        $this->signIn();
+        $thread = create('App\Thread', ['title' => 'Some title 24']);
+        $thread = $this->postJson(route('threads'), $thread->toArray())->json();
+        $this->assertEquals("some-title-24-{$thread['id']}", $thread['slug']);
     }
     
     /** @test */
