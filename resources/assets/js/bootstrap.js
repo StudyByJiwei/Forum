@@ -23,15 +23,17 @@ window.Vue = require('vue');
 
 let authorizations = require('./authorizations');
 
-Vue.prototype.authorize = function(...params) {
-    if (!window.App.signedIn) return false;
+Vue.prototype.authorize = function (...params) {
+    if (! window.App.signedIn) return false;
+
     if (typeof params[0] === 'string') {
         return authorizations[params[0]](params[1]);
     }
+
     return params[0](window.App.user);
 };
-Vue.prototype.signedIn = window.App.signedIn;
 
+Vue.prototype.signedIn = window.App.signedIn;
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
