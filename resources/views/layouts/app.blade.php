@@ -32,7 +32,7 @@
             display: none;
         }
     </style>
-    @yield('header')
+    @yield('head')
 </head>
 <body style="padding-bottom: 100px;">
     <div id="app">
