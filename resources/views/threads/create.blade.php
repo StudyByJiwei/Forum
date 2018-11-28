@@ -36,7 +36,7 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="g-recaptcha" data-sitekey="6LdAIn0UAAAAAL2Ax5ITyHgWnwhdgdvzKfM5-lSl"></div>
+                                <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}"></div>
                             </div>
 
                             <div class="form-group">
