@@ -58679,12 +58679,11 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /***/ (function(module, exports) {
 
 var user = window.App.user;
-
 module.exports = {
     owns: function owns(model) {
-        var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'user';
+        var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'user_id';
 
-        return model[prop] === user.id;
+        return model[prop] == user.id;
     },
     isAdmin: function isAdmin() {
         return ['YiQiao'].includes(user.name);
@@ -60501,14 +60500,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             repliesCount: this.thread.replies_count,
             locked: this.thread.locked,
+            title: this.thread.title,
+            body: this.thread.body,
+            form: {},
             editing: false
         };
+    },
+    created: function created() {
+        this.resetForm();
     },
 
     methods: {
         toggleLock: function toggleLock() {
-            axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+            var uri = '/locked-updated/' + this.thread.slug;
+            axios[this.locked ? 'delete' : 'post'](ur);
             this.locked = !this.locked;
+        },
+        update: function update() {
+            var _this = this;
+
+            var uri = '/threads/' + this.thread.channel.slug + '/' + this.thread.slug;
+            axios.patch(uri, this.form).then(function () {
+                _this.editing = false;
+                _this.title = _this.form.title;
+                _this.body = _this.form.body;
+                flash('Your thread has been updated.');
+            });
+        },
+        resetForm: function resetForm() {
+            this.form = {
+                title: this.thread.title,
+                body: this.thread.body
+            };
+            this.editing = false;
         }
     }
 });
