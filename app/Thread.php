@@ -51,6 +51,10 @@ class Thread extends Model
         });
     }
 
+    public function toSearchableArray()
+    {
+        return $this->toArray() + ['path' => $this->path()];
+    }
     /**
      * @return string
      */
