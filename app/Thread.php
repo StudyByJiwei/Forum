@@ -150,6 +150,11 @@ class Thread extends Model
         return $this->subscriptions()->where('user_id', auth()->id())->exists();
     }
 
+    public function getBodyAttribute($body)
+    {
+        return \Purify::clean($body);
+    }
+
     public function hasUpdatesFor($user)
     {
         $key = $user->visitedThreadCacheKey($this);

@@ -118,6 +118,12 @@ class ThreadTest extends TestCase
         });
 
     }
-    
+
+    /** @test */
+    function a_threads_body_is_sanitized_automatically()
+    {
+        $thread = make('App\Reply', ['body' => '<script>alert("bad")</script><p>This is okay.</p>']);
+        $this->assertEmpty($thread->body);
+    }
 
 }
